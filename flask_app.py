@@ -48,6 +48,7 @@ class Recipe(db.Model):
     __tablename__ = "recipes"
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(200), nullable=False)
+    instructions = db.Column(db.Text, nullable=False)  # Dieses Feld MUSS da sein!
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     user = db.relationship('User', backref=db.backref('recipes', lazy=True))
 
@@ -155,12 +156,14 @@ def add_recipe():
         session.pop("user", None)
         return redirect(url_for("login"))
 
-    ingredients = Ingredient.query.all()  # Alle Zutaten aus der Datenbank laden
-    units = ["Stück", "Gramm", "Kilogramm", "Löffel", "Teelöffel"]  # Vordefinierte Einheiten
+    ingredients = Ingredient.query.all()
+    units = ["Stück", "Gramm", "Kilogramm", "Löffel", "Teelöffel"]
 
     if request.method == "POST":
         title = request.form["title"]
-        recipe = Recipe(title=title, user_id=user.id)
+        instructions = request.form["instructions"]  # Kochanleitung wird aus dem Formular geholt
+
+        recipe = Recipe(title=title, instructions=instructions, user_id=user.id)
         db.session.add(recipe)
         db.session.commit()
 
