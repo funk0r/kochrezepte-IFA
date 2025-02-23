@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ recipe.title }}</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h2>{{ recipe.title }}</h2>
+        <h4>Benutzer: {{ recipe.user.username }}</h4>
+        <h3>Zutaten:</h3>
+        <ul class="list-group">
+            {% for ingredient in ingredients %}
+                <li class="list-group-item">
+                    {{ ingredient.amount }} {{ ingredient.unit }} {{ ingredient.ingredient.name }}
+                </li>
+            {% endfor %}
+        </ul>
+        <a href="{{ url_for('list_recipes') }}" class="btn btn-secondary">Zurück zur Übersicht</a>
+    </div>
+</body>
+</html>

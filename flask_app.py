@@ -187,5 +187,27 @@ def add_recipe():
 
     return render_template("add_recipe.html", ingredients=ingredients, units=units)
 
+@app.route("/recipes")
+def list_recipes():
+    if "user" not in session:
+        return redirect(url_for("login"))
+
+    recipes = Recipe.query.all()  # Alle Rezepte abrufen
+    return render_template("recipes.html", recipes=recipes)
+
+@app.route("/recipe/<int:recipe_id>")
+def view_recipe(recipe_id):
+    if "user" not in session:
+        return redirect(url_for("login"))
+
+    recipe = Recipe.query.get(recipe_id)
+    if not recipe:
+        return "Rezept nicht gefunden!"
+
+    ingredients = RecipeIngredient.query.filter_by(recipe_id=recipe.id).all()
+
+    return render_template("recipe_detail.html", recipe=recipe, ingredients=ingredients)
+
+
 if __name__ == '__main__':
     app.run(debug=True)

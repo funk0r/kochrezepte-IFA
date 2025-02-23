@@ -25,6 +25,10 @@
 
     <!-- Rezept hinzufügen Button über den Kommentaren -->
     <a href="{{ url_for('add_recipe') }}" class="btn btn-primary">+ Neues Rezept hinzufügen</a>
+    
+    <!-- Alle Rezepte anzeigen Button -->
+    <a href="{{ url_for('list_recipes') }}" class="btn btn-info">📜 Alle Rezepte anzeigen</a>
+    
     <br><br>
 
     {% for comment in comments %}

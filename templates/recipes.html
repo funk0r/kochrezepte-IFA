@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Alle Rezepte</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Alle Rezepte</h2>
+        <ul class="list-group">
+            {% for recipe in recipes %}
+                <li class="list-group-item">
+                    <a href="{{ url_for('view_recipe', recipe_id=recipe.id) }}">{{ recipe.title }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+        <a href="{{ url_for('index') }}" class="btn btn-secondary">Zurück</a>
+    </div>
+</body>
+</html>
