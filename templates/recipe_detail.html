@@ -8,6 +8,7 @@
     <div class="container">
         <h2>{{ recipe.title }}</h2>
         <h4>Benutzer: {{ recipe.user.username }}</h4>
+
         <h3>Zutaten:</h3>
         <ul class="list-group">
             {% for ingredient in ingredients %}
@@ -16,6 +17,11 @@
                 </li>
             {% endfor %}
         </ul>
+
+        <!-- Neue Sektion für die Kochanleitung -->
+        <h3>Zubereitung:</h3>
+        <p class="well">{{ recipe.instructions }}</p>
+
         <a href="{{ url_for('list_recipes') }}" class="btn btn-secondary">Zurück zur Übersicht</a>
     </div>
 </body>
