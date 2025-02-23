@@ -1,43 +1,40 @@
+<!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
-        <title>My scratchboard page</title>
-    </head>
+<head>
+    <title>Kommentare</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+</head>
+<body>
 
-    <body>
-        <nav class="navbar navbar-inverse">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="#">funk0rs Kochrezepte</a>
-                </div>
-            </div>
-        </nav>
+<!-- Navigationsleiste -->
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">funk0rs Kochrezepte</a>
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="{{ url_for('logout') }}" class="btn btn-danger navbar-btn">Logout</a></li>
+        </ul>
+    </div>
+</nav>
 
-        <div class="container">
-            {% for comment in comments %}
-                <div class="row">
-                    <strong>{{ comment.user.username }}</strong>: {{ comment.content }}
-                </div>
-            {% endfor %}
-            <hr>
-            <div class="row">
-                <form action="." method="POST">
-                    <textarea name="contents" placeholder="Enter a comment" class="form-control"></textarea>
-                    <input type="submit" class="btn btn-success" value="Post comment">
-                </form>
-            </div>
-        </div><!-- /.container -->
-        <form action="{{ url_for('logout') }}" method="get">
-    <button type="submit" class="btn btn-danger">Logout</button>
-</form>
-    </body>
+<div class="container">
+    <h2>Kommentare</h2>
+    <p>Willkommen, {{ username }}!</p>
+
+    {% for comment in comments %}
+        <div class="row">
+            <strong>{{ comment.user.username }}</strong>: {{ comment.content }}
+        </div>
+    {% endfor %}
+
+    <div class="row">
+        <form action="." method="POST">
+            <textarea name="contents" placeholder="Enter a comment" class="form-control"></textarea>
+            <input type="submit" class="btn btn-success" value="Post comment">
+        </form>
+    </div>
+</div>
+
+</body>
 </html>
