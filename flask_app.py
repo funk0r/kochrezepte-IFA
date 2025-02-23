@@ -39,6 +39,28 @@ class Comment(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete="CASCADE"), nullable=False)
     user = db.relationship('User', backref=db.backref('comments', lazy=True))
 
+class Ingredient(db.Model):
+    __tablename__ = "ingredients"
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), unique=True, nullable=False)
+
+class Recipe(db.Model):
+    __tablename__ = "recipes"
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(200), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    user = db.relationship('User', backref=db.backref('recipes', lazy=True))
+
+class RecipeIngredient(db.Model):
+    __tablename__ = "recipe_ingredients"
+    id = db.Column(db.Integer, primary_key=True)
+    recipe_id = db.Column(db.Integer, db.ForeignKey('recipes.id'), nullable=False)
+    ingredient_id = db.Column(db.Integer, db.ForeignKey('ingredients.id'), nullable=False)
+    amount = db.Column(db.Float, nullable=False)
+    unit = db.Column(db.String(50), nullable=False)
+    recipe = db.relationship('Recipe', backref=db.backref('ingredients', lazy=True))
+    ingredient = db.relationship('Ingredient', backref=db.backref('recipes', lazy=True))
+
 def is_valid_email(email):
     return re.match(r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$", email)
 
@@ -114,7 +136,7 @@ def logout():
 def delete_user(username):
     if "user" not in session or session["user"] != username:
         return "Nicht autorisiert!"
-    
+
     user = User.query.filter_by(username=username).first()
     if user:
         db.session.delete(user)
@@ -122,6 +144,48 @@ def delete_user(username):
         session.pop("user", None)
         return redirect(url_for("login"))
     return "Benutzer nicht gefunden!"
+
+@app.route("/add_recipe", methods=["GET", "POST"])
+def add_recipe():
+    if "user" not in session:
+        return redirect(url_for("login"))
+
+    user = User.query.filter_by(username=session["user"]).first()
+    if not user:
+        session.pop("user", None)
+        return redirect(url_for("login"))
+
+    ingredients = Ingredient.query.all()  # Alle Zutaten aus der Datenbank laden
+    units = ["Stück", "Gramm", "Kilogramm", "Löffel", "Teelöffel"]  # Vordefinierte Einheiten
+
+    if request.method == "POST":
+        title = request.form["title"]
+        recipe = Recipe(title=title, user_id=user.id)
+        db.session.add(recipe)
+        db.session.commit()
+
+        ingredient_ids = request.form.getlist("ingredient_id")
+        amounts = request.form.getlist("amount")
+        units_selected = request.form.getlist("unit")
+
+        for i in range(len(ingredient_ids)):
+            ingredient_id = ingredient_ids[i]
+            amount = amounts[i]
+            unit = units_selected[i]
+
+            if ingredient_id and amount and unit:
+                recipe_ingredient = RecipeIngredient(
+                    recipe_id=recipe.id,
+                    ingredient_id=int(ingredient_id),
+                    amount=float(amount),
+                    unit=unit
+                )
+                db.session.add(recipe_ingredient)
+
+        db.session.commit()
+        return redirect(url_for("index"))
+
+    return render_template("add_recipe.html", ingredients=ingredients, units=units)
 
 if __name__ == '__main__':
     app.run(debug=True)

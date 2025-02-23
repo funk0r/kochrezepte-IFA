@@ -13,6 +13,7 @@
             <a class="navbar-brand" href="#">funk0rs Kochrezepte</a>
         </div>
         <ul class="nav navbar-nav navbar-right">
+            <li><a href="{{ url_for('add_recipe') }}" class="btn btn-success navbar-btn">+ Rezept hinzufügen</a></li>
             <li><a href="{{ url_for('logout') }}" class="btn btn-danger navbar-btn">Logout</a></li>
         </ul>
     </div>
@@ -21,6 +22,10 @@
 <div class="container">
     <h2>Kommentare</h2>
     <p>Willkommen, {{ username }}!</p>
+
+    <!-- Rezept hinzufügen Button über den Kommentaren -->
+    <a href="{{ url_for('add_recipe') }}" class="btn btn-primary">+ Neues Rezept hinzufügen</a>
+    <br><br>
 
     {% for comment in comments %}
         <div class="row">
