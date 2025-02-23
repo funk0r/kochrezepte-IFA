@@ -1,0 +1,59 @@
+[33mcommit efee40d028d6e7ba19e8d08051f006cbeab9484b[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m)[m
+Author: funk0r <th.seebacher@gmail.com>
+Date:   Sun Feb 23 13:34:10 2025 +0000
+
+    Added Email for register
+
+[33mcommit 52cc26a7b5e682a6962b5b98b5e3534129ec8bcf[m
+Author: funk0r <th.seebacher@gmail.com>
+Date:   Sun Feb 23 13:01:06 2025 +0000
+
+    Created User Tables and Login Mask v2
+
+[33mcommit 4e79049d0be7ccb577ea74861f5fcd3f59914bbd[m
+Author: funk0r <th.seebacher@gmail.com>
+Date:   Sun Feb 23 13:00:18 2025 +0000
+
+    Created User Tables and Login Mask
+
+[33mcommit dd56a9288608b9265eb23f3911510a5c76e2e1c4[m
+Author: funk0r <th.seebacher@gmail.com>
+Date:   Sun Feb 23 12:07:49 2025 +0000
+
+    Add Comments in flask and changed template
+
+[33mcommit 4ba8faa4fc6e111d91823474784420413a1f675d[m
+Author: funk0r <th.seebacher@gmail.com>
+Date:   Sun Feb 23 11:50:25 2025 +0000
+
+    Add Comment Database
+
+[33mcommit 198e1c257bc2f874450ac4967f884bb79be51720[m
+Author: funk0r <th.seebacher@gmail.com>
+Date:   Sun Feb 23 10:02:50 2025 +0000
+
+    Add MySQL Database String
+
+[33mcommit fd80e1be7136fa77e40c7a4bd7cf922a8cc0cc3b[m
+Author: funk0r <th.seebacher@gmail.com>
+Date:   Sat Feb 22 11:47:48 2025 +0000
+
+    Replaced dummy comments with some in-memory storage
+
+[33mcommit 8bdee63a4ea7e931f56a29f1381190a0b15f6699[m
+Author: funk0r <th.seebacher@gmail.com>
+Date:   Sat Feb 22 11:27:16 2025 +0000
+
+    Made the site prettier.
+
+[33mcommit 3a2ae0e874625742decd117fb09b26a1d8d01436[m
+Author: funk0r <th.seebacher@gmail.com>
+Date:   Sat Feb 22 11:17:32 2025 +0000
+
+    A first cut at the template
+
+[33mcommit f41ba8a273ab28800988a6b503bed0f2d263404c[m
+Author: funk0r <th.seebacher@gmail.com>
+Date:   Sat Feb 22 10:56:59 2025 +0000
+
+    Initial commit: Added .gitignore and flask_app.py
