@@ -22,6 +22,24 @@
         <h3>Zubereitung:</h3>
         <p class="well">{{ recipe.instructions }}</p>
 
+        <!-- Kommentarbereich -->
+<h3>Kommentare zum Rezept:</h3>
+<ul class="list-group">
+    {% for comment in recipe.recipe_comments %}
+        <li class="list-group-item">
+            <strong>{{ comment.user.username }}:</strong> {{ comment.content }} <br>
+            <small>Gepostet am {{ comment.created_at.strftime('%Y-%m-%d %H:%M:%S') }}</small>
+        </li>
+    {% endfor %}
+</ul>
+
+        <!-- Kommentarformular -->
+<h4>Neuen Kommentar hinzufügen:</h4>
+<form action="{{ url_for('add_recipe_comment', recipe_id=recipe.id) }}" method="POST">
+    <textarea name="content" class="form-control" placeholder="Schreibe einen Kommentar..." required></textarea>
+    <br>
+    <button type="submit" class="btn btn-primary">Kommentar absenden</button>
+</form>
         <a href="{{ url_for('list_recipes') }}" class="btn btn-secondary">Zurück zur Übersicht</a>
     </div>
 </body>

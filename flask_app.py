@@ -63,6 +63,18 @@ class RecipeIngredient(db.Model):
 
 def is_valid_email(email):
     return re.match(r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$", email)
+    
+class RecipeComment(db.Model):
+    __tablename__ = "recipe_comments"
+    id = db.Column(db.Integer, primary_key=True)
+    content = db.Column(db.String(4096), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete="CASCADE"), nullable=False)
+    recipe_id = db.Column(db.Integer, db.ForeignKey('recipes.id', ondelete="CASCADE"), nullable=False)
+    created_at = db.Column(db.DateTime, server_default=db.func.now())
+
+    user = db.relationship('User', backref=db.backref('recipe_comments', lazy=True))
+    recipe = db.relationship('Recipe', backref=db.backref('recipe_comments', lazy=True))
+
 
 @app.route("/", methods=["GET", "POST"])
 def index():
@@ -207,6 +219,26 @@ def view_recipe(recipe_id):
     ingredients = RecipeIngredient.query.filter_by(recipe_id=recipe.id).all()
 
     return render_template("recipe_detail.html", recipe=recipe, ingredients=ingredients)
+    
+@app.route("/recipe/<int:recipe_id>/comment", methods=["POST"])
+def add_recipe_comment(recipe_id):
+    if "user" not in session:
+        return redirect(url_for("login"))
+
+    user = User.query.filter_by(username=session["user"]).first()
+    if not user:
+        session.pop("user", None)
+        return redirect(url_for("login"))
+
+    content = request.form.get("content")
+    if not content:
+        return "Fehler: Kommentar darf nicht leer sein!"
+
+    recipe_comment = RecipeComment(content=content, user_id=user.id, recipe_id=recipe_id)
+    db.session.add(recipe_comment)
+    db.session.commit()
+
+    return redirect(url_for("view_recipe", recipe_id=recipe_id))
 
 
 if __name__ == '__main__':
