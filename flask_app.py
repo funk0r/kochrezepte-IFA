@@ -6,6 +6,20 @@ from flask import Flask, redirect, render_template, request, url_for
 app = Flask(__name__)
 app.config["DEBUG"] = True
 
+SQLALCHEMY_DATABASE_URI = "mysql+mysqlconnector://{username}:{password}@{hostname}/{databasename}".format(
+    username="funk0r",
+    password="Timbersaw2025!",
+    hostname="funk0r.mysql.pythonanywhere-services.com",
+    databasename="funk0r$kochrezepte",
+)
+app.config["SQLALCHEMY_DATABASE_URI"] = SQLALCHEMY_DATABASE_URI
+app.config["SQLALCHEMY_POOL_RECYCLE"] = 299
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+
+from flask_sqlalchemy import SQLAlchemy
+db = SQLAlchemy(app)
+
+
 comments = []
 
 @app.route("/", methods=["GET", "POST"])
