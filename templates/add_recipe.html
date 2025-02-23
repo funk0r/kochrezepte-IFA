@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Neues Rezept erstellen</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script>
+        function addIngredientRow() {
+            var container = document.getElementById("ingredients-container");
+            var row = document.createElement("div");
+            row.classList.add("row", "mb-2");
+            row.innerHTML = `
+                <div class="col-md-4">
+                    <select name="ingredient_id" class="form-control">
+                        {% for ingredient in ingredients %}
+                            <option value="{{ ingredient.id }}">{{ ingredient.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <input type="number" step="0.01" name="amount" class="form-control" placeholder="Menge">
+                </div>
+                <div class="col-md-3">
+                    <select name="unit" class="form-control">
+                        {% for unit in units %}
+                            <option value="{{ unit }}">{{ unit }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <button type="button" class="btn btn-danger" onclick="this.parentElement.parentElement.remove()">X</button>
+                </div>
+            `;
+            container.appendChild(row);
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h2>Neues Rezept erstellen</h2>
+        <form method="POST">
+            <div class="form-group">
+                <label>Rezeptname:</label>
+                <input type="text" name="title" class="form-control" required>
+            </div>
+
+            <h4>Zutaten hinzufügen:</h4>
+            <div id="ingredients-container">
+                <div class="row mb-2">
+                    <div class="col-md-4">
+                        <select name="ingredient_id" class="form-control">
+                            {% for ingredient in ingredients %}
+                                <option value="{{ ingredient.id }}">{{ ingredient.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <input type="number" step="0.01" name="amount" class="form-control" placeholder="Menge">
+                    </div>
+                    <div class="col-md-3">
+                        <select name="unit" class="form-control">
+                            {% for unit in units %}
+                                <option value="{{ unit }}">{{ unit }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <button type="button" class="btn btn-info" onclick="addIngredientRow()">+ Weitere Zutat hinzufügen</button>
+            <br><br>
+
+            <button type="submit" class="btn btn-success">Rezept speichern</button>
+            <a href="{{ url_for('index') }}" class="btn btn-secondary">Abbrechen</a>
+        </form>
+    </div>
+</body>
+</html>
