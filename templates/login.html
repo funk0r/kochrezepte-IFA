@@ -1,25 +1,149 @@
 <!DOCTYPE html>
-<html>
+<html lang="de">
 <head>
-    <title>Login</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login - funk0rs Kochrezepte</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <style>
+        /* Hintergrundbild des gesamten Body */
+        body {
+            background: url("https://cdn.pixabay.com/photo/2016/02/18/19/06/french-fries-1206188_1280.jpg") no-repeat center center fixed;
+            background-size: cover;
+            position: relative;
+        }
+
+        /* Dunkler Overlay für das Hintergrundbild */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        /* Dunkelgrauer Balken für den Login-Bereich */
+        .dark-bar {
+            position: relative;
+            width: 100%;
+            background: rgba(40, 40, 40, 0.95); /* Dunkelgrau */
+            padding: 50px 0; /* Mehr Padding für besseren Look */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Login-Container */
+        .login-container {
+            width: 400px;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        /* Überschrift */
+        .login-container h2 {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: black;
+        }
+
+        /* Eingabefelder */
+        .form-control {
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            padding: 12px;
+            font-size: 16px;
+        }
+
+        /* Anmeldebutton */
+        .btn-login {
+            width: 100%;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 8px;
+            padding: 12px;
+            background: #5bc0de;
+            color: white;
+            border: none;
+        }
+
+        .btn-login:hover {
+            background: #31b0d5;
+        }
+
+        /* Registrierung-Link */
+        .text-muted {
+            font-size: 16px;
+            margin-top: 15px;
+        }
+
+        /* Unterer Bereich mit neuem zuverlässigem Koch-Hintergrund */
+        .footer-background {
+            position: relative;
+            background: url("https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg") no-repeat center center;
+            background-size: cover;
+            padding: 50px 0;
+            text-align: center;
+            color: white;
+        }
+
+        /* Transparente Overlay für bessere Lesbarkeit */
+        .footer-overlay {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 30px;
+            border-radius: 10px;
+            display: inline-block;
+        }
+
+        /* Footer-Text */
+        .footer {
+            margin-top: 10px;
+            font-size: 14px;
+            color: black;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <h2>Login</h2>
+
+<!-- Dunkelgrauer Balken für den Login -->
+<div class="dark-bar">
+    <!-- Login-Box -->
+    <div class="login-container">
+        <h2>🍽️ Login</h2>
+        <p>Bitte melde dich an, um fortzufahren.</p>
+
         <form method="POST">
             <div class="form-group">
-                <label>Benutzername</label>
-                <input type="text" name="username" class="form-control" required>
+                <input type="text" name="username" class="form-control" placeholder="Benutzername" required>
             </div>
             <div class="form-group">
-                <label>Passwort</label>
-                <input type="password" name="password" class="form-control" required>
+                <input type="password" name="password" class="form-control" placeholder="Passwort" required>
             </div>
-            <button type="submit" class="btn btn-primary">Einloggen</button>
+            <button type="submit" class="btn btn-login">🔑 Anmelden</button>
         </form>
-        <br>
-        <p>Kein Konto? <a href="{{ url_for('register') }}">Hier registrieren</a></p>
+
+        <p class="text-muted">Noch kein Konto? <a href="{{ url_for('register') }}">Registrieren</a></p>
     </div>
+</div>
+
+<!-- Neuer Hintergrundbereich mit Koch-Motiv -->
+<div class="footer-background">
+    <div class="footer-overlay">
+        <h3>Willkommen bei funk0rs Kochrezepte! 🥘</h3>
+        <p>Finde köstliche Rezepte und teile deine eigenen Kreationen mit anderen!</p>
+    </div>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+    &copy; 2025 Thomas Seebacher - Projekt IFA 🍕
+</div>
+
 </body>
 </html>
