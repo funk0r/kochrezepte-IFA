@@ -48,6 +48,7 @@ class Recipe(db.Model):
     __tablename__ = "recipes"
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(200), nullable=False)
+    instructions = db.Column(db.Text, nullable=False)  # <-- Hier das fehlende Feld hinzufügen
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     user = db.relationship('User', backref=db.backref('recipes', lazy=True))
 
@@ -63,7 +64,7 @@ class RecipeIngredient(db.Model):
 
 def is_valid_email(email):
     return re.match(r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$", email)
-    
+
 class RecipeComment(db.Model):
     __tablename__ = "recipe_comments"
     id = db.Column(db.Integer, primary_key=True)
@@ -167,12 +168,14 @@ def add_recipe():
         session.pop("user", None)
         return redirect(url_for("login"))
 
-    ingredients = Ingredient.query.all()  # Alle Zutaten aus der Datenbank laden
-    units = ["Stück", "Gramm", "Kilogramm", "Löffel", "Teelöffel", "Prise", "Liter", "dl", "ml"]  # Vordefinierte Einheiten
+    ingredients = Ingredient.query.all()
+    units = ["Stück", "Gramm", "Kilogramm", "Löffel", "Teelöffel", "Prise", "Liter", "dl", "ml"]
 
     if request.method == "POST":
         title = request.form["title"]
-        recipe = Recipe(title=title, user_id=user.id)
+        instructions = request.form["instructions"]  # Hier das fehlende Feld holen!
+
+        recipe = Recipe(title=title, instructions=instructions, user_id=user.id)  # Hier speichern!
         db.session.add(recipe)
         db.session.commit()
 
@@ -219,7 +222,7 @@ def view_recipe(recipe_id):
     ingredients = RecipeIngredient.query.filter_by(recipe_id=recipe.id).all()
 
     return render_template("recipe_detail.html", recipe=recipe, ingredients=ingredients)
-    
+
 @app.route("/recipe/<int:recipe_id>/comment", methods=["POST"])
 def add_recipe_comment(recipe_id):
     if "user" not in session:
