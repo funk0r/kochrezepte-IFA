@@ -1,0 +1,131 @@
+[33mcommit b012d4ede0a8fd881e45721785b91e40e59b6cb2[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m)[m
+Author: funk0r <th.seebacher@gmail.com>
+Date:   Sat Mar 8 08:46:33 2025 +0000
+
+    different files for better overview created and saved script
+
+[33mcommit 81b25277873874366c504cdab7c959384fca064f[m
+Author: funk0r <th.seebacher@gmail.com>
+Date:   Mon Feb 24 15:43:49 2025 +0000
+
+    cosmetics of HTML Sitesv2
+
+[33mcommit 92474edc241a275cf3a211760b185dd5e7a9f663[m
+Author: funk0r <th.seebacher@gmail.com>
+Date:   Mon Feb 24 15:28:00 2025 +0000
+
+    cosmetics of HTML Sites
+
+[33mcommit bdccb5cbf8044a61b2170838eceae42f64c1d808[m
+Author: funk0r <th.seebacher@gmail.com>
+Date:   Mon Feb 24 09:53:15 2025 +0000
+
+    add how to cook
+
+[33mcommit ec3f857c49a09f8f1f3219fa90df41f217b9812b[m
+Author: funk0r <th.seebacher@gmail.com>
+Date:   Sun Feb 23 21:21:21 2025 +0000
+
+    Comment function or recipe and mainpage customization
+
+[33mcommit a2bdf8a85daa3e185ffd476bf05ce7c18d423559[m
+Author: funk0r <th.seebacher@gmail.com>
+Date:   Sun Feb 23 20:24:54 2025 +0000
+
+    Add recipes instructionsv3
+
+[33mcommit 4e660d25219f89c402490bec181fc7d35446fc73[m
+Author: funk0r <th.seebacher@gmail.com>
+Date:   Sun Feb 23 20:09:12 2025 +0000
+
+    Add recipes instructionsv2
+
+[33mcommit f6096c9e25910283882c9cfb01d7d23b5a32983e[m
+Author: funk0r <th.seebacher@gmail.com>
+Date:   Sun Feb 23 20:08:54 2025 +0000
+
+    Add recipes instructions
+
+[33mcommit 90d2fa687986c2c445d3a47ce2de39bc917918a7[m
+Author: funk0r <th.seebacher@gmail.com>
+Date:   Sun Feb 23 14:45:34 2025 +0000
+
+    Add recipes html files recipe and recipe_detail
+
+[33mcommit be7c1b14b247cdeb55028db76af37edb65aa9e0e[m
+Author: funk0r <th.seebacher@gmail.com>
+Date:   Sun Feb 23 14:27:50 2025 +0000
+
+    Add recipes functionv3
+
+[33mcommit 1e221f9c494ef790967566ca9c19245076a8e251[m
+Author: funk0r <th.seebacher@gmail.com>
+Date:   Sun Feb 23 14:19:21 2025 +0000
+
+    Add recipes functionv2
+
+[33mcommit d7b23f00136db663bbcf978df6bd9c176e1633e2[m
+Author: funk0r <th.seebacher@gmail.com>
+Date:   Sun Feb 23 14:19:00 2025 +0000
+
+    Add recipes function
+
+[33mcommit efee40d028d6e7ba19e8d08051f006cbeab9484b[m
+Author: funk0r <th.seebacher@gmail.com>
+Date:   Sun Feb 23 13:34:10 2025 +0000
+
+    Added Email for register
+
+[33mcommit 52cc26a7b5e682a6962b5b98b5e3534129ec8bcf[m
+Author: funk0r <th.seebacher@gmail.com>
+Date:   Sun Feb 23 13:01:06 2025 +0000
+
+    Created User Tables and Login Mask v2
+
+[33mcommit 4e79049d0be7ccb577ea74861f5fcd3f59914bbd[m
+Author: funk0r <th.seebacher@gmail.com>
+Date:   Sun Feb 23 13:00:18 2025 +0000
+
+    Created User Tables and Login Mask
+
+[33mcommit dd56a9288608b9265eb23f3911510a5c76e2e1c4[m
+Author: funk0r <th.seebacher@gmail.com>
+Date:   Sun Feb 23 12:07:49 2025 +0000
+
+    Add Comments in flask and changed template
+
+[33mcommit 4ba8faa4fc6e111d91823474784420413a1f675d[m
+Author: funk0r <th.seebacher@gmail.com>
+Date:   Sun Feb 23 11:50:25 2025 +0000
+
+    Add Comment Database
+
+[33mcommit 198e1c257bc2f874450ac4967f884bb79be51720[m
+Author: funk0r <th.seebacher@gmail.com>
+Date:   Sun Feb 23 10:02:50 2025 +0000
+
+    Add MySQL Database String
+
+[33mcommit fd80e1be7136fa77e40c7a4bd7cf922a8cc0cc3b[m
+Author: funk0r <th.seebacher@gmail.com>
+Date:   Sat Feb 22 11:47:48 2025 +0000
+
+    Replaced dummy comments with some in-memory storage
+
+[33mcommit 8bdee63a4ea7e931f56a29f1381190a0b15f6699[m
+Author: funk0r <th.seebacher@gmail.com>
+Date:   Sat Feb 22 11:27:16 2025 +0000
+
+    Made the site prettier.
+
+[33mcommit 3a2ae0e874625742decd117fb09b26a1d8d01436[m
+Author: funk0r <th.seebacher@gmail.com>
+Date:   Sat Feb 22 11:17:32 2025 +0000
+
+    A first cut at the template
+
+[33mcommit f41ba8a273ab28800988a6b503bed0f2d263404c[m
+Author: funk0r <th.seebacher@gmail.com>
+Date:   Sat Feb 22 10:56:59 2025 +0000
+
+    Initial commit: Added .gitignore and flask_app.py
