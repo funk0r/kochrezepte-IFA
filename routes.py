@@ -142,3 +142,50 @@ def init_routes(app):
         db.session.add(recipe_comment)
         db.session.commit()
         return redirect(url_for("view_recipe", recipe_id=recipe_id))
+
+    # REST-API-Endpunkte
+    @app.route("/api/recipes", methods=["GET"])
+    def api_list_recipes():
+        try:
+            recipes = Recipe.query.all()
+            recipes_data = [
+                {
+                    "id": recipe.id,
+                    "title": recipe.title,
+                    "instructions": recipe.instructions,
+                    "user": recipe.user.username,
+                    "ingredients": [
+                        {
+                            "name": ri.ingredient.name,
+                            "amount": ri.amount,
+                            "unit": ri.unit
+                        } for ri in recipe.ingredients
+                    ]
+                } for recipe in recipes
+            ]
+            return {"recipes": recipes_data}, 200
+        except Exception as e:
+            return {"error": f"Fehler beim Abrufen der Rezepte: {str(e)}"}, 500
+
+    @app.route("/api/recipes/<int:recipe_id>", methods=["GET"])
+    def api_view_recipe(recipe_id):
+        try:
+            recipe = Recipe.query.get(recipe_id)
+            if not recipe:
+                return {"error": "Rezept nicht gefunden"}, 404
+            recipe_data = {
+                "id": recipe.id,
+                "title": recipe.title,
+                "instructions": recipe.instructions,
+                "user": recipe.user.username,
+                "ingredients": [
+                    {
+                        "name": ri.ingredient.name,
+                        "amount": ri.amount,
+                        "unit": ri.unit
+                    } for ri in recipe.ingredients
+                ]
+            }
+            return recipe_data, 200
+        except Exception as e:
+            return {"error": f"Fehler beim Abrufen des Rezepts: {str(e)}"}, 500
