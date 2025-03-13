@@ -1,9 +1,12 @@
 # routes.py
-from flask import render_template, request, redirect, url_for, session
-from werkzeug.security import generate_password_hash, check_password_hash
-from models import db, User, Comment, Recipe, RecipeIngredient, Ingredient, RecipeComment, is_valid_email
+from flask import render_template, request, redirect, url_for, session  # Importiert Flask-Module für Routing und Sitzungsverwaltung
+from werkzeug.security import generate_password_hash, check_password_hash  # Importiert Funktionen für Passwort-Hashing
+from models import db, User, Comment, Recipe, RecipeIngredient, Ingredient, RecipeComment, is_valid_email  # Importiert Datenbankmodelle und E-Mail-Validierung
 
+# Funktion zur Initialisierung aller Routen für die Flask-App
 def init_routes(app):
+    
+    # Route für die Hauptseite mit Kommentarfunktion
     @app.route("/", methods=["GET", "POST"])
     def index():
         if "user" not in session:
@@ -20,6 +23,7 @@ def init_routes(app):
         comments = Comment.query.order_by(Comment.id.desc()).all()
         return render_template("main_page.html", comments=comments, username=user.username)
 
+    # Route für die Benutzerregistrierung
     @app.route("/register", methods=["GET", "POST"])
     def register():
         if request.method == "POST":
@@ -46,6 +50,7 @@ def init_routes(app):
                 return f"Fehler beim Speichern in der Datenbank: {str(e)}"
         return render_template("register.html")
 
+    # Route für die Benutzeranmeldung
     @app.route("/login", methods=["GET", "POST"])
     def login():
         if request.method == "POST":
@@ -58,11 +63,13 @@ def init_routes(app):
             return "Falscher Benutzername oder Passwort!"
         return render_template("login.html")
 
+    # Route zum Abmelden eines Benutzers
     @app.route("/logout")
     def logout():
         session.pop("user", None)
         return redirect(url_for("login"))
 
+    # Route zum Löschen eines Benutzerkontos
     @app.route("/delete_user/<username>", methods=["POST"])
     def delete_user(username):
         if "user" not in session or session["user"] != username:
@@ -75,6 +82,7 @@ def init_routes(app):
             return redirect(url_for("login"))
         return "Benutzer nicht gefunden!"
 
+    # Route zum Hinzufügen eines neuen Rezepts
     @app.route("/add_recipe", methods=["GET", "POST"])
     def add_recipe():
         if "user" not in session:
@@ -110,6 +118,7 @@ def init_routes(app):
             return redirect(url_for("index"))
         return render_template("add_recipe.html", ingredients=ingredients, units=units)
 
+    # Route zur Anzeige aller Rezepte
     @app.route("/recipes")
     def list_recipes():
         if "user" not in session:
@@ -117,6 +126,7 @@ def init_routes(app):
         recipes = Recipe.query.all()
         return render_template("recipes.html", recipes=recipes)
 
+    # Route zur Anzeige eines einzelnen Rezepts
     @app.route("/recipe/<int:recipe_id>")
     def view_recipe(recipe_id):
         if "user" not in session:
@@ -127,6 +137,7 @@ def init_routes(app):
         ingredients = RecipeIngredient.query.filter_by(recipe_id=recipe.id).all()
         return render_template("recipe_detail.html", recipe=recipe, ingredients=ingredients)
 
+    # Route zum Hinzufügen eines Kommentars zu einem Rezept
     @app.route("/recipe/<int:recipe_id>/comment", methods=["POST"])
     def add_recipe_comment(recipe_id):
         if "user" not in session:
@@ -143,7 +154,7 @@ def init_routes(app):
         db.session.commit()
         return redirect(url_for("view_recipe", recipe_id=recipe_id))
 
-    # REST-API-Endpunkte
+    # API-Route zur Auflistung aller Rezepte im JSON-Format
     @app.route("/api/recipes", methods=["GET"])
     def api_list_recipes():
         try:
@@ -167,6 +178,7 @@ def init_routes(app):
         except Exception as e:
             return {"error": f"Fehler beim Abrufen der Rezepte: {str(e)}"}, 500
 
+    # API-Route zur Anzeige eines einzelnen Rezepts im JSON-Format
     @app.route("/api/recipes/<int:recipe_id>", methods=["GET"])
     def api_view_recipe(recipe_id):
         try:

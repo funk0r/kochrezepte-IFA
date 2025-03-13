@@ -1,9 +1,10 @@
 # models.py
-from flask_sqlalchemy import SQLAlchemy
-import re
+from flask_sqlalchemy import SQLAlchemy  # Importiert SQLAlchemy für die Datenbankverwaltung
+import re  # Importiert reguläre Ausdrücke zur Validierung (z. B. von E-Mail-Adressen)
 
 db = SQLAlchemy()
 
+# Modell für die Benutzer-Tabelle
 class User(db.Model):
     __tablename__ = "users"
     id = db.Column(db.Integer, primary_key=True)
@@ -11,6 +12,7 @@ class User(db.Model):
     email = db.Column(db.String(150), unique=True, nullable=False)
     password_hash = db.Column(db.String(255), nullable=False)
 
+# Modell für die Kommentar-Tabelle (allgemeine Kommentare)
 class Comment(db.Model):
     __tablename__ = "comments"
     id = db.Column(db.Integer, primary_key=True)
@@ -18,11 +20,13 @@ class Comment(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete="CASCADE"), nullable=False)
     user = db.relationship('User', backref=db.backref('comments', lazy=True))
 
+# Modell für die Zutaten-Tabelle
 class Ingredient(db.Model):
     __tablename__ = "ingredients"
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), unique=True, nullable=False)
 
+# Modell für die Rezept-Tabelle
 class Recipe(db.Model):
     __tablename__ = "recipes"
     id = db.Column(db.Integer, primary_key=True)
@@ -31,6 +35,7 @@ class Recipe(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     user = db.relationship('User', backref=db.backref('recipes', lazy=True))
 
+# Modell für die Verknüpfungstabelle zwischen Rezepten und Zutaten
 class RecipeIngredient(db.Model):
     __tablename__ = "recipe_ingredients"
     id = db.Column(db.Integer, primary_key=True)
@@ -41,6 +46,7 @@ class RecipeIngredient(db.Model):
     recipe = db.relationship('Recipe', backref=db.backref('ingredients', lazy=True))
     ingredient = db.relationship('Ingredient', backref=db.backref('recipes', lazy=True))
 
+# Modell für die Rezept-Kommentar-Tabelle
 class RecipeComment(db.Model):
     __tablename__ = "recipe_comments"
     id = db.Column(db.Integer, primary_key=True)
@@ -51,5 +57,6 @@ class RecipeComment(db.Model):
     user = db.relationship('User', backref=db.backref('recipe_comments', lazy=True))
     recipe = db.relationship('Recipe', backref=db.backref('recipe_comments', lazy=True))
 
+# Funktion zur Validierung von E-Mail-Adressen
 def is_valid_email(email):
     return re.match(r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$", email)
